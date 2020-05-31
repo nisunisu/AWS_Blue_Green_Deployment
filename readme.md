@@ -22,9 +22,9 @@ terraform fmt # rewrite Terraform configuration files to a canonical format and 
 
 terraform validate # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
 
-terraform apply
+terraform apply # With "--auto-approve" option, No need to input "yes".
 
 terraform show
 
-terraform destroy
+terraform destroy # With "--auto-approve" option, No need to input "yes".
 ```
