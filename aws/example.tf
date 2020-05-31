@@ -7,3 +7,8 @@ resource "aws_instance" "example" {
   ami           = "ami-0a1c2ec61571737db" # amazon linux
   instance_type = "t2.micro"
 }
+
+resource "aws_eip" "ip" {
+    vpc = true
+    instance = aws_instance.example.id
+}
