@@ -19,4 +19,5 @@ resource "aws_eip" "ip" {
     Name  = "EIP_terraform_test"
     Owner = "nisunisu"
   }
+  depends_on = [aws_instance.example]
 }
