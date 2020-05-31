@@ -11,6 +11,17 @@ This repo is just for the perpose of personal terraform trying.
 # Installation
 - [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html )
 
+# Progress
+- [x] [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install)
+- [x] [Build Infrastructure](https://learn.hashicorp.com/terraform/getting-started/build)
+- [x] [Change Infrastructure](https://learn.hashicorp.com/terraform/getting-started/change)
+- [x] [Destory Infrastructure](https://learn.hashicorp.com/terraform/getting-started/destroy)
+- [x] [Resource Dependencies](https://learn.hashicorp.com/terraform/getting-started/dependencies)
+- [ ] [Provision](https://learn.hashicorp.com/terraform/getting-started/provision)
+- [ ] [Input Variables](https://learn.hashicorp.com/terraform/getting-started/variables)
+- [ ] [Output Variables](https://learn.hashicorp.com/terraform/getting-started/outputs)
+- [ ] [Remote State Storage](https://learn.hashicorp.com/terraform/getting-started/remote)
+
 # Procedures
 ```bash
 cd .aws
