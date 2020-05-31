@@ -6,6 +6,9 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-0a1c2ec61571737db" # amazon linux
   instance_type = "t2.micro"
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.example.public_ip} > my_public_ip.txt"
+  }
   tags = {
     Name  = "terraform-test"
     Owner = "nisunisu"
