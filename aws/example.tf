@@ -4,6 +4,6 @@ provider "aws" {
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-0a1c2ec61571737db" # amazon linux
+  ami           = "ami-07dd14faa8a17fb3e" # RHEL8
   instance_type = "t2.micro"
 }
