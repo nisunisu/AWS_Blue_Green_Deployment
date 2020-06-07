@@ -1,3 +1,7 @@
+output "public_ip" {
+  value = aws_instance.example.public_ip
+}
+
 provider "aws" {
   profile = "default" # "default" means "%UserProfile%\.aws\credential" in Windows
   region  = "ap-northeast-1"

@@ -17,9 +17,9 @@ This repo is just for the perpose of personal terraform trying.
 - [x] [Change Infrastructure](https://learn.hashicorp.com/terraform/getting-started/change)
 - [x] [Destory Infrastructure](https://learn.hashicorp.com/terraform/getting-started/destroy)
 - [x] [Resource Dependencies](https://learn.hashicorp.com/terraform/getting-started/dependencies)
-- [ ] [Provision](https://learn.hashicorp.com/terraform/getting-started/provision)
-- [ ] [Input Variables](https://learn.hashicorp.com/terraform/getting-started/variables)
-- [ ] [Output Variables](https://learn.hashicorp.com/terraform/getting-started/outputs)
+- [x] [Provision](https://learn.hashicorp.com/terraform/getting-started/provision)
+- [x] [Input Variables](https://learn.hashicorp.com/terraform/getting-started/variables)
+- [x] [Output Variables](https://learn.hashicorp.com/terraform/getting-started/outputs)
 - [ ] [Remote State Storage](https://learn.hashicorp.com/terraform/getting-started/remote)
 
 # Procedures
@@ -34,6 +34,8 @@ terraform fmt # rewrite Terraform configuration files to a canonical format and 
 terraform validate # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
 
 terraform apply # With "--auto-approve" option, No need to input "yes".
+
+terraform output public_ip # "output" can be used after "apply"
 
 terraform show
 
