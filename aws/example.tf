@@ -3,7 +3,7 @@ output "public_ip" {
 }
 
 provider "aws" {
-  profile = "default" # "default" means "%UserProfile%\.aws\credential" in Windows
+  profile = var.aws_profile # Refer to "%UserProfile%\.aws\credential" in Windows
   region  = "ap-northeast-1"
 }
 
