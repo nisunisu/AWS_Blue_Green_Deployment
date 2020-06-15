@@ -47,6 +47,10 @@ ls -l ./*.tf # confirm .tf file presence.
 
 terraform init
 
+terraform workspace new stg
+terraform workspace new prd
+terraform workspace select prd # make and select workspace
+
 terraform fmt # rewrite Terraform configuration files to a canonical format and style.
 
 terraform validate # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
