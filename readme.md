@@ -22,6 +22,24 @@ This repo is just for the perpose of personal terraform trying.
 - [x] [Output Variables](https://learn.hashicorp.com/terraform/getting-started/outputs)
 - [ ] [Remote State Storage](https://learn.hashicorp.com/terraform/getting-started/remote)
 
+# For debugging
+Set environmental variable.
+
+## Referrence
+- [Debugging Terraform](https://www.terraform.io/docs/internals/debugging.html)
+
+## Windows
+```PowerShell
+# Set TEMPORARILY
+$env:TF_LOG="TRACE" # TRACE, DEBUG, INFO, WARN or ERROR
+$env:TF_LOG_PATH="./terraform.log"
+
+# Set PERMANENTLY
+[System.Environment]::SetEnvironmentVariable("TF_LOG", "TRACE", "User")
+[System.Environment]::SetEnvironmentVariable("TF_LOG_PATH", "./terraform.log", "User")
+# need to restart powershell console
+```
+
 # Procedures
 ```bash
 cd .aws
