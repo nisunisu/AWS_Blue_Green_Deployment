@@ -12,7 +12,7 @@ terraform {
     region  = "ap-northeast-1"
     encrypt = true
     key     = "terraform.tfstate"
-    # Variables NOT allowed here. So, abount those items below, See .tfbackend
+    # Variables NOT allowed here. So, about those items below, See .tfbackend
     #   - bucket
     #   - profile
   }
@@ -25,12 +25,12 @@ resource "aws_instance" "example" {
     var.my_sgid # my default security group id
   ]
   associate_public_ip_address = true # NOTICE: Even if this is set as "false", it will be ALWAYS set as "true" when "auto-assign public ipv4 address" with SUBNET is set as "TRUE".
-  key_name = var.key_name
+  key_name                    = var.key_name
 
   provisioner "local-exec" {
     command = "echo ${aws_instance.example.public_ip} > ./output/my_public_ip.txt"
   }
-  
+
   connection {
     type        = "ssh"
     user        = "ec2-user"
