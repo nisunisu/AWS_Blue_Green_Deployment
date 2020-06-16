@@ -7,6 +7,17 @@ provider "aws" {
   region  = "ap-northeast-1"
 }
 
+terraform {
+  backend "s3" {
+    region  = "ap-northeast-1"
+    encrypt = true
+    key     = "terraform.tfstate"
+    # Variables NOT allowed here. So, abount those items below, See .tfbackend
+    #   - bucket
+    #   - profile
+  }
+}
+
 resource "aws_instance" "example" {
   ami           = "ami-0a1c2ec61571737db" # amazon linux
   instance_type = "t2.micro"

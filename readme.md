@@ -46,6 +46,7 @@ cd .aws
 ls -l ./*.tf # confirm .tf file presence.
 
 terraform init
+terraform init -backend-config="variables_SECRET.tfbackend"
 
 terraform workspace new stg
 terraform workspace new prd
