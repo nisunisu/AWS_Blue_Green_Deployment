@@ -30,6 +30,30 @@ resource "aws_vpc" "default" {
   }
 }
 
+# Public Route Table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.default.id
+
+  tags = {
+    Name = "PublicRouteTable_terraform_${terraform.workspace}"
+  }
+}
+
+# Private Route Table
+resource "aws_route_table" "private_0" {
+  vpc_id = aws_vpc.default.id
+
+  tags = {
+    Name = "PrivateRouteTable_terraform_0_${terraform.workspace}"
+  }
+}
+resource "aws_route_table" "private_1" {
+  vpc_id = aws_vpc.default.id
+
+  tags = {
+    Name = "PrivateRouteTable_terraform_1_${terraform.workspace}"
+  }
+}
 
 # -----------------------------------------------------------------
 # EC2
