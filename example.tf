@@ -18,6 +18,21 @@ terraform {
   }
 }
 
+# -----------------------------------------------------------------
+# VPC
+resource "aws_vpc" "default" {
+  cidr_block           = "10.1.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "vpc_terraform_${terraform.workspace}"
+  }
+}
+
+
+# -----------------------------------------------------------------
+# EC2
 resource "aws_instance" "example" {
   ami           = "ami-0a1c2ec61571737db" # amazon linux
   instance_type = "t2.micro"
@@ -52,6 +67,9 @@ resource "aws_instance" "example" {
   }
 }
 
+
+# -----------------------------------------------------------------
+# Elastic IP
 # resource "aws_eip" "ip" {
 #   vpc      = true
 #   instance = aws_instance.example.id
