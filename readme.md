@@ -51,6 +51,7 @@ terraform init -backend-config="variables_SECRET.tfbackend"
 terraform workspace new stg
 terraform workspace new prd
 terraform workspace select prd # make and select workspace
+terraform workspace list
 
 terraform fmt # rewrite Terraform configuration files to a canonical format and style.
 
