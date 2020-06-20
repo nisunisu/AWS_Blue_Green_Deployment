@@ -41,7 +41,8 @@ resource "aws_internet_gateway" "main" {
   }
 }
 
-resource "aws_subnet" "public_1" {
+# Subnet
+resource "aws_subnet" "public_1a" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.1.0/24"
   map_public_ip_on_launch = true
@@ -51,31 +52,32 @@ resource "aws_subnet" "public_1" {
   }
 }
 
-resource "aws_subnet" "public_2" {
+resource "aws_subnet" "private_1c" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.2.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   availability_zone       = "ap-northeast-1c"
   tags = {
-    Name = "Subnet_public_terraform_2_${terraform.workspace}"
+    Name = "Subnet_private_terraform_1_${terraform.workspace}"
   }
 }
-resource "aws_subnet" "public_3" {
+resource "aws_subnet" "private_1d" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.3.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
   availability_zone       = "ap-northeast-1d"
   tags = {
-    Name = "Subnet_public_terraform_3_${terraform.workspace}"
+    Name = "Subnet_private_terraform_2_${terraform.workspace}"
   }
 }
 
+# Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
   name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
   subnet_ids = [
-    aws_subnet.public_1.id,
-    aws_subnet.public_2.id,
-    aws_subnet.public_3.id
+    aws_subnet.public_1a.id,
+    aws_subnet.private_1c.id,
+    aws_subnet.private_1d.id
   ]
   tags = {
     Name = "RDS_SubnetGroup_terraform"
