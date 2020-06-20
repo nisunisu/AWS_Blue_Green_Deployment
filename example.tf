@@ -32,6 +32,15 @@ resource "aws_vpc" "default" {
   }
 }
 
+# Internet Gateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.default.id
+
+  tags = {
+    Name = "igw_terraform_${terraform.workspace}"
+  }
+}
+
 resource "aws_subnet" "public_1" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.1.0/24"
