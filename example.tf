@@ -71,6 +71,27 @@ resource "aws_subnet" "private_1d" {
   }
 }
 
+# Security Group
+resource "aws_security_group" "default" {
+  name        = "security_group_terraform"
+  description = "Allow MYSQL/Aurora"
+  vpc_id      = aws_vpc.default.id
+}
+
+# Security Group Rule
+resource "aws_security_group_rule" "inbound_database" {
+  security_group_id = aws_security_group.default.id
+  type        = "ingress"
+  from_port   = 3306
+  to_port     = 3306
+  protocol    = "tcp"
+  cidr_blocks = [
+    "${var.my_home_ip}/32"
+  ]
+}
+
+# Need to create egress rule.
+
 # Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
   name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
@@ -95,6 +116,9 @@ resource "aws_db_instance" "default" {
   password             = "foobarbaz"
   db_subnet_group_name = aws_db_subnet_group.default.id
   skip_final_snapshot  = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
+  vpc_security_group_ids = [
+    aws_security_group.default.id
+  ]
 }
 
 # -----------------------------------------------------------------
