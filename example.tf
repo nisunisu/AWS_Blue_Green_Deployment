@@ -7,6 +7,8 @@ provider "aws" {
   region  = "ap-northeast-1"
 }
 
+# -----------------------------------------------------------------
+# Terraform backend
 terraform {
   backend "s3" {
     region  = "ap-northeast-1"
@@ -21,7 +23,7 @@ terraform {
 # -----------------------------------------------------------------
 # VPC
 resource "aws_vpc" "default" {
-  cidr_block           = "10.1.0.0/16"
+  cidr_block           = "172.30.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -30,29 +32,58 @@ resource "aws_vpc" "default" {
   }
 }
 
-# Public Route Table
-resource "aws_route_table" "public" {
-  vpc_id = aws_vpc.default.id
-
+resource "aws_subnet" "public_1" {
+  vpc_id                  = aws_vpc.default.id
+  cidr_block              = "172.30.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "ap-northeast-1a"
   tags = {
-    Name = "PublicRouteTable_terraform_${terraform.workspace}"
+    Name = "Subnet_public_terraform_1_${terraform.workspace}"
   }
 }
 
-# Private Route Table
-resource "aws_route_table" "private_0" {
-  vpc_id = aws_vpc.default.id
-
+resource "aws_subnet" "public_2" {
+  vpc_id                  = aws_vpc.default.id
+  cidr_block              = "172.30.2.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "ap-northeast-1c"
   tags = {
-    Name = "PrivateRouteTable_terraform_0_${terraform.workspace}"
+    Name = "Subnet_public_terraform_2_${terraform.workspace}"
   }
 }
-resource "aws_route_table" "private_1" {
-  vpc_id = aws_vpc.default.id
-
+resource "aws_subnet" "public_3" {
+  vpc_id                  = aws_vpc.default.id
+  cidr_block              = "172.30.3.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "ap-northeast-1d"
   tags = {
-    Name = "PrivateRouteTable_terraform_1_${terraform.workspace}"
+    Name = "Subnet_public_terraform_3_${terraform.workspace}"
   }
+}
+
+resource "aws_db_subnet_group" "default" {
+  name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
+  subnet_ids = [
+    aws_subnet.public_1.id,
+    aws_subnet.public_2.id,
+    aws_subnet.public_3.id
+  ]
+  tags = {
+    Name = "RDS_SubnetGroup_terraform"
+  }
+}
+
+resource "aws_db_instance" "default" {
+  allocated_storage    = 20
+  storage_type         = "gp2"
+  engine               = "mariaDB"
+  engine_version       = "10.4"
+  instance_class       = "db.t2.micro"
+  name                 = "dbinstanceterraform" # DBName must begin with a letter and contain only alphanumeric characters.
+  username             = "foo"
+  password             = "foobarbaz"
+  db_subnet_group_name = aws_db_subnet_group.default.id
+  skip_final_snapshot  = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
 }
 
 # -----------------------------------------------------------------
