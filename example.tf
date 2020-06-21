@@ -103,17 +103,17 @@ resource "aws_route_table_association" "public_1c" {
 }
 
 # Security Group
-resource "aws_security_group" "default" {
-  name        = "security_group_terraform"
+resource "aws_security_group" "rds" {
+  name        = "securitygroup_rds"
   description = "Allow MYSQL/Aurora"
   vpc_id      = aws_vpc.default.id
   tags = {
-    Name = "Security_Group_terraform_${terraform.workspace}"
+    Name = "securitygroup_rds_terraform_${terraform.workspace}"
   }
 }
 # Security Group Rule
-resource "aws_security_group_rule" "inbound_database" {
-  security_group_id = aws_security_group.default.id
+resource "aws_security_group_rule" "Inbound_database" {
+  security_group_id = aws_security_group.rds.id
   type              = "ingress"
   from_port         = 3306
   to_port           = 3306
@@ -123,7 +123,7 @@ resource "aws_security_group_rule" "inbound_database" {
   ]
 }
 resource "aws_security_group_rule" "Outbound_allow_all" {
-  security_group_id = aws_security_group.default.id
+  security_group_id = aws_security_group.rds.id
   type              = "egress"
   from_port         = 0
   to_port           = 0
@@ -160,7 +160,7 @@ resource "aws_db_instance" "default" {
   skip_final_snapshot   = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
   publicly_accessible   = true # To set "true", the vpc with internet gateway is required.
   vpc_security_group_ids = [
-    aws_security_group.default.id
+    aws_security_group.rds.id
   ]
 }
 
