@@ -42,6 +42,7 @@ resource "aws_internet_gateway" "main" {
 }
 
 # Subnet
+## Public
 resource "aws_subnet" "public_1a" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.1.0/24"
@@ -51,7 +52,16 @@ resource "aws_subnet" "public_1a" {
     Name = "Subnet_public_terraform_1_${terraform.workspace}"
   }
 }
-
+resource "aws_subnet" "public_1c" {
+  vpc_id                  = aws_vpc.default.id
+  cidr_block              = "172.30.4.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "ap-northeast-1c"
+  tags = {
+    Name = "Subnet_public_1c_terraform__${terraform.workspace}"
+  }
+}
+## Private
 resource "aws_subnet" "private_1c" {
   vpc_id                  = aws_vpc.default.id
   cidr_block              = "172.30.2.0/24"
@@ -71,6 +81,27 @@ resource "aws_subnet" "private_1d" {
   }
 }
 
+# Route Table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.default.id
+  tags = {
+    Name = "Route_Table_terraform_${terraform.workspace}"
+  }
+}
+resource "aws_route" "public" {
+  destination_cidr_block = "0.0.0.0/0"
+  route_table_id         = aws_route_table.public.id
+  gateway_id             = aws_internet_gateway.main.id
+}
+resource "aws_route_table_association" "public_1a" {
+  subnet_id      = aws_subnet.public_1a.id
+  route_table_id = aws_route_table.public.id
+}
+resource "aws_route_table_association" "public_1c" {
+  subnet_id      = aws_subnet.public_1c.id
+  route_table_id = aws_route_table.public.id
+}
+
 # Security Group
 resource "aws_security_group" "default" {
   name        = "security_group_terraform"
@@ -80,7 +111,6 @@ resource "aws_security_group" "default" {
     Name = "Security_Group_terraform_${terraform.workspace}"
   }
 }
-
 # Security Group Rule
 resource "aws_security_group_rule" "inbound_database" {
   security_group_id = aws_security_group.default.id
@@ -92,16 +122,23 @@ resource "aws_security_group_rule" "inbound_database" {
     "${var.my_home_ip}/32"
   ]
 }
-
-# Need to create egress rule.
+resource "aws_security_group_rule" "Outbound_allow_all" {
+  security_group_id = aws_security_group.default.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks = [
+    "0.0.0.0/0"
+  ]
+}
 
 # Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
   name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
   subnet_ids = [
     aws_subnet.public_1a.id,
-    aws_subnet.private_1c.id,
-    aws_subnet.private_1d.id
+    aws_subnet.public_1c.id
   ]
   tags = {
     Name = "RDS_SubnetGroup_terraform"
