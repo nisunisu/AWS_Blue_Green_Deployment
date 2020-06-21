@@ -1,5 +1,5 @@
 output "public_ip" {
-  value = aws_instance.example.public_ip
+  value = aws_instance.web_1.public_ip
 }
 
 provider "aws" {
@@ -165,18 +165,50 @@ resource "aws_db_instance" "default" {
 }
 
 # -----------------------------------------------------------------
+# Security Group
+resource "aws_security_group" "ssh" {
+  name        = "securitygroup_ssh"
+  description = "Allow SSH"
+  vpc_id      = aws_vpc.default.id
+  tags = {
+    Name = "securitygroup_ssh_terraform_${terraform.workspace}"
+  }
+}
+# Security Group Rule
+resource "aws_security_group_rule" "Inbound_ssh" {
+  security_group_id = aws_security_group.ssh.id
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks = [
+    "${var.my_home_ip}/32"
+  ]
+}
+resource "aws_security_group_rule" "Outbound_allow_all_ssh" {
+  security_group_id = aws_security_group.ssh.id
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks = [
+    "0.0.0.0/0"
+  ]
+}
+
 # EC2
-resource "aws_instance" "example" {
+resource "aws_instance" "web_1" {
   ami           = "ami-0a1c2ec61571737db" # amazon linux
   instance_type = "t2.micro"
   vpc_security_group_ids = [
-    var.my_sgid # my default security group id
+    aws_security_group.ssh.id
   ]
+  subnet_id = aws_subnet.public_1a.id
   associate_public_ip_address = true # NOTICE: Even if this is set as "false", it will be ALWAYS set as "true" when "auto-assign public ipv4 address" with SUBNET is set as "TRUE".
   key_name                    = var.key_name
 
   provisioner "local-exec" {
-    command = "echo ${aws_instance.example.public_ip} > ./output/my_public_ip.txt"
+    command = "echo ${aws_instance.web_1.public_ip} > ./output/publicip_ec2_web_1.txt"
   }
 
   connection {
@@ -195,8 +227,7 @@ resource "aws_instance" "example" {
   }
 
   tags = {
-    Name  = "terraform-test"
-    Owner = "nisunisu"
+    Name  = "ec2_web_1_terraform_${terraform.workspace}"
   }
 }
 
@@ -205,10 +236,10 @@ resource "aws_instance" "example" {
 # Elastic IP
 # resource "aws_eip" "ip" {
 #   vpc      = true
-#   instance = aws_instance.example.id
+#   instance = aws_instance.web_1.id
 #   tags = {
 #     Name  = "EIP_terraform_test"
 #     Owner = "nisunisu"
 #   }
-#   depends_on = [aws_instance.example]
+#   depends_on = [aws_instance.web_1]
 # }
