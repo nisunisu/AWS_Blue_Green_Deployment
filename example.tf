@@ -76,15 +76,18 @@ resource "aws_security_group" "default" {
   name        = "security_group_terraform"
   description = "Allow MYSQL/Aurora"
   vpc_id      = aws_vpc.default.id
+  tags = {
+    Name = "Security_Group_terraform_${terraform.workspace}"
+  }
 }
 
 # Security Group Rule
 resource "aws_security_group_rule" "inbound_database" {
   security_group_id = aws_security_group.default.id
-  type        = "ingress"
-  from_port   = 3306
-  to_port     = 3306
-  protocol    = "tcp"
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
   cidr_blocks = [
     "${var.my_home_ip}/32"
   ]
@@ -106,16 +109,19 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "default" {
-  allocated_storage    = 20
-  storage_type         = "gp2"
-  engine               = "mariaDB"
-  engine_version       = "10.4"
-  instance_class       = "db.t2.micro"
-  name                 = "dbinstanceterraform" # DBName must begin with a letter and contain only alphanumeric characters.
-  username             = "foo"
-  password             = "foobarbaz"
-  db_subnet_group_name = aws_db_subnet_group.default.id
-  skip_final_snapshot  = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
+  allocated_storage     = 20 # GiB
+  max_allocated_storage = 21 # If this item is set, "auto scaling" is enabled.
+  storage_type          = "gp2"
+  engine                = "mariaDB"
+  engine_version        = "10.4"
+  instance_class        = "db.t2.micro"
+  identifier            = "rds-terraform-${terraform.workspace}"
+  name                  = "terraform" # DBName must begin with a letter and contain only alphanumeric characters.
+  username              = "foo"
+  password              = "foobarbaz"
+  db_subnet_group_name  = aws_db_subnet_group.default.id
+  skip_final_snapshot   = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
+  publicly_accessible   = true # To set "true", the vpc with internet gateway is required.
   vpc_security_group_ids = [
     aws_security_group.default.id
   ]
