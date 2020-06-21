@@ -55,6 +55,8 @@ terraform workspace list
 
 terraform fmt # rewrite Terraform configuration files to a canonical format and style.
 
+terraform plan # Check the plan to execute.
+
 terraform validate # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
 
 terraform apply # With "--auto-approve" option, No need to input "yes".
