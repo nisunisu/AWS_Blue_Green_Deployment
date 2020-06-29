@@ -41,6 +41,7 @@ $env:TF_LOG_PATH="./terraform.log"
 ```
 
 # Procedures
+## Terraform
 ```bash
 cd .aws
 ls -l ./*.tf # confirm .tf file presence.
@@ -66,4 +67,9 @@ terraform output public_ip # "output" can be used after "apply"
 terraform show
 
 terraform destroy # With "--auto-approve" option, No need to input "yes".
+```
+
+## Connect to RDS via mysql client
+```bash
+mysql -h ${rds_endpoint_name} -P 3306 -u ${db_username} -p
 ```
