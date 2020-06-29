@@ -1,5 +1,5 @@
 # Subnet Group for RDS
-resource "aws_db_subnet_group" "default" {
+resource "aws_db_subnet_group" "public_access" {
   name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
   subnet_ids = [
     aws_subnet.public_1a.id,
@@ -22,7 +22,7 @@ resource "aws_db_instance" "default" {
   name                  = "terraform" # DBName must begin with a letter and contain only alphanumeric characters.
   username              = "foo"
   password              = "foobarbaz"
-  db_subnet_group_name  = aws_db_subnet_group.default.id
+  db_subnet_group_name  = aws_db_subnet_group.public_access.id
   skip_final_snapshot   = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
   publicly_accessible   = true # To set "true", the vpc with internet gateway is required.
   vpc_security_group_ids = [
