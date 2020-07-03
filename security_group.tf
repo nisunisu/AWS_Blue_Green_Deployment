@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "Inbound_database" {
   to_port           = 3306
   protocol          = "tcp"
   cidr_blocks = [
-    "${var.my_home_ip}/32"
+    "${aws_instance.web_1.private_ip}/32"
   ]
 }
 resource "aws_security_group_rule" "Outbound_allow_all" {

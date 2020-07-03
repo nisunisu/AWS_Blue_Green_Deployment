@@ -23,7 +23,7 @@ resource "aws_instance" "web_1" {
   provisioner "remote-exec" {
     inline = [
       "sudo amazon-linux-extras enable nginx1.12",
-      "sudo yum -y install nginx",
+      "sudo yum -y install nginx mysql",
       "sudo systemctl start nginx"
     ]
   }
