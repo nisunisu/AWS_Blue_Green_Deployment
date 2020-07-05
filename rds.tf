@@ -1,12 +1,12 @@
 # Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
-  name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
+  name = "rds_subnetgroup_terraform_${terraform.workspace}" # Uppercase is NOT allowd in "name"
   subnet_ids = [
     aws_subnet.private_1c.id,
     aws_subnet.private_1d.id
   ]
   tags = {
-    Name = "RDS_SubnetGroup_terraform"
+    Name = "RDS_SubnetGroup_terraform_${terraform.workspace}"
   }
 }
 
