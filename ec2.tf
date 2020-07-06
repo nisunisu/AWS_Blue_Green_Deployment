@@ -32,16 +32,3 @@ resource "aws_instance" "web_1" {
     Name  = "ec2_web_1_terraform_${terraform.workspace}"
   }
 }
-
-
-# -----------------------------------------------------------------
-# Elastic IP
-# resource "aws_eip" "ip" {
-#   vpc      = true
-#   instance = aws_instance.web_1.id
-#   tags = {
-#     Name  = "EIP_terraform_test"
-#     Owner = "nisunisu"
-#   }
-#   depends_on = [aws_instance.web_1]
-# }
