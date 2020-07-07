@@ -1,6 +1,6 @@
 # For RDS
 resource "aws_security_group" "rds" {
-  name        = "securitygroup_rds"
+  name        = "securitygroup_rds_terraform_${terraform.workspace}"
   description = "Allow MYSQL/Aurora"
   vpc_id      = aws_vpc.default.id
   tags = {
@@ -31,7 +31,7 @@ resource "aws_security_group_rule" "Outbound_allow_all" {
 
 # For EC2
 resource "aws_security_group" "ssh" {
-  name        = "securitygroup_ssh"
+  name        = "securitygroup_ssh_terraform_${terraform.workspace}"
   description = "Allow SSH"
   vpc_id      = aws_vpc.default.id
   tags = {
