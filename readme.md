@@ -1,12 +1,20 @@
 # Name
-My terraform test.
+My terraform practice.
 
-This repo is just for the perpose of personal terraform trying.
+This repo is just for the purpose of personal terraform trying.
 
 # Requirement
 - aws cli (version >= 2)
   - Use for aws credential
 - Terraform
+
+# IAM
+Following full access permissions are required
+- VPC
+- RDS
+- EC2
+- S3
+- ELB
 
 # Installation
 - [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html )
@@ -43,6 +51,8 @@ $env:TF_LOG_PATH="./terraform.log"
 # Procedures
 ## Terraform
 ```bash
+# AWS user is specified in provider.tf
+
 cd .aws
 ls -l ./*.tf # confirm .tf file presence.
 
