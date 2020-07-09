@@ -30,17 +30,17 @@ resource "aws_security_group_rule" "Outbound_allow_all" {
 }
 
 # For EC2
-resource "aws_security_group" "ssh" {
-  name        = "securitygroup_ssh_terraform_${terraform.workspace}"
-  description = "Allow SSH"
+resource "aws_security_group" "ec2" {
+  name        = "securitygroup_ec2_terraform_${terraform.workspace}"
+  description = "Allow ssh"
   vpc_id      = aws_vpc.default.id
   tags = {
-    Name = "securitygroup_ssh_terraform_${terraform.workspace}"
+    Name = "securitygroup_ec2_terraform_${terraform.workspace}"
   }
 }
 ## Security Group Rule
 resource "aws_security_group_rule" "Inbound_ssh" {
-  security_group_id = aws_security_group.ssh.id
+  security_group_id = aws_security_group.ec2.id
   type              = "ingress"
   from_port         = 22
   to_port           = 22
@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "Inbound_ssh" {
   ]
 }
 resource "aws_security_group_rule" "Outbound_allow_all_ssh" {
-  security_group_id = aws_security_group.ssh.id
+  security_group_id = aws_security_group.ec2.id
   type              = "egress"
   from_port         = 0
   to_port           = 0
