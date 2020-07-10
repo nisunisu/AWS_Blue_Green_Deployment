@@ -59,9 +59,9 @@ ls -l ./*.tf # confirm .tf file presence.
 terraform init
 terraform init -backend-config="variables_SECRET.tfbackend"
 
-terraform workspace new stg
-terraform workspace new prd
-terraform workspace select prd # make and select workspace
+terraform workspace new blue
+terraform workspace new green
+terraform workspace select blue # make and select workspace
 terraform workspace list
 
 terraform fmt # rewrite Terraform configuration files to a canonical format and style.
