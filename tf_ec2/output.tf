@@ -1,3 +1,6 @@
+output "ec2_web1_instance_id" {
+  value = aws_instance.web_1.id
+}
 output "ec2_web1_public_ip" {
   value = aws_instance.web_1.public_ip
 }
