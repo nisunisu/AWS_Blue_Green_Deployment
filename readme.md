@@ -134,3 +134,10 @@ terraform refresh
 ```bash
 mysql -h ${rds_endpoint_name} -P 3306 -u ${db_username} -p
 ```
+
+## Connect to Web server via ALB
+1. Run `terraform apply` under every component folder (tf_*).
+1. Check `aws_lb.default.dns_name` output after `terraform apply` in `tf_alb`
+1. Launch any browser you like (e.g. Google chrome)
+1. Input `aws_lb.default.dns_name` to address bar and go.
+1. If a test page of nginx is appeared, it means you can reach to EC2(web server) via ALB.
