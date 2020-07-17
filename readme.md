@@ -16,6 +16,21 @@ Terraform/
 +- tf_vpc/    # Configuration for AWS VPC, IGW, Subnet, Route Table
 -  readme.md
 ```
+And in every `tf_*` directory, there are secret 2 files which is NOT commit to this repo.
+```bash
+Terraform/
++- tf_vpc/
+  - variables_SECRET.tfbackend   # credential variables for `terraform init` are described
+  - variables_SECRET.auto.tfvars # credential variables for `terraform` commands (excluding `init`) are described
+```
+So, execute `terraform` commands like:
+```bash
+cd Terraform/tf_vpc
+terraform init -backend-config="./variables_SECRET.tfbackend"
+terraform plan
+terraform apply
+terraform destroy
+```
 
 # IAM
 Following full access permissions are required
