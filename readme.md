@@ -1,12 +1,21 @@
 # Name
-My terraform practice.
-
 This repo is just for the purpose of personal terraform trying.
 
 # Requirement
 - aws cli (version >= 2)
   - Use for aws credential
 - Terraform
+
+# This repo's directory layout
+Configurations are created for some componet units.
+```bash
+Terraform/
++- tf_alb/    # Configuration for AWS ALB, Security Group
++- tf_ec2/    # Configuration for AWS EC2, Security Group
++- tf_rds/    # Configuration for AWS RDS, Security Group
++- tf_vpc/    # Configuration for AWS VPC, IGW, Subnet, Route Table
+-  readme.md
+```
 
 # IAM
 Following full access permissions are required
@@ -19,18 +28,10 @@ Following full access permissions are required
 # Installation
 - [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html )
 
-# Progress
-- [x] [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install)
-- [x] [Build Infrastructure](https://learn.hashicorp.com/terraform/getting-started/build)
-- [x] [Change Infrastructure](https://learn.hashicorp.com/terraform/getting-started/change)
-- [x] [Destory Infrastructure](https://learn.hashicorp.com/terraform/getting-started/destroy)
-- [x] [Resource Dependencies](https://learn.hashicorp.com/terraform/getting-started/dependencies)
-- [x] [Provision](https://learn.hashicorp.com/terraform/getting-started/provision)
-- [x] [Input Variables](https://learn.hashicorp.com/terraform/getting-started/variables)
-- [x] [Output Variables](https://learn.hashicorp.com/terraform/getting-started/outputs)
-- [ ] [Remote State Storage](https://learn.hashicorp.com/terraform/getting-started/remote)
+# Official tutorial
+- [Getting Started](https://learn.hashicorp.com/terraform/getting-started/intro)
 
-# For debugging
+# Debugging
 Set environmental variable.
 
 ## Referrence
@@ -53,30 +54,33 @@ $env:TF_LOG_PATH="./terraform.log"
 ```bash
 # AWS user is specified in provider.tf
 
-cd .aws
-ls -l ./*.tf # confirm .tf file presence.
-
-terraform init
+# Initialize terraform (make .terraform folder)
 terraform init -backend-config="variables_SECRET.tfbackend"
 
+# Workspaces
 terraform workspace new blue
 terraform workspace new green
 terraform workspace select blue # make and select workspace
-terraform workspace list
+terraform workspace list        # show the list of workspaces (and current workspaces)
 
-terraform fmt # rewrite Terraform configuration files to a canonical format and style.
+# rewrite Terraform configuration files to a canonical format and style.
+terraform fmt
 
-terraform plan # Check the plan to execute.
+# Check the plan to execute.
+terraform plan
 
-terraform validate # validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
+# validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
+terraform validate
 
-terraform apply # With "--auto-approve" option, No need to input "yes".
+# Apply and Destroy
+terraform apply   --auto-approve
+terraform destroy --auto-approve
 
-terraform output public_ip # "output" can be used after "apply"
+# Show outputs
+terraform output
 
+# Provide human-readable output from a state or plan file
 terraform show
-
-terraform destroy # With "--auto-approve" option, No need to input "yes".
 ```
 
 ## Connect to RDS via mysql client
