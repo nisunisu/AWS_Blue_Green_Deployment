@@ -124,6 +124,10 @@ terraform output
 
 # Provide human-readable output from a state or plan file
 terraform show
+
+# Detect any drift from the last-known state, and to update the state file.
+# This does not modify infrastructure, but does modify the state file. If the state is changed, this may cause changes to occur during the next plan or apply.
+terraform refresh
 ```
 
 ## Connect to RDS via mysql client
