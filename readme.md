@@ -6,6 +6,34 @@ This repo is just for the purpose of personal terraform trying.
   - Use for aws credential
 - Terraform
 
+# Terraform resource types
+1. `resource`
+1. `output`
+1. `variable`
+    > [Input Variables](https://www.terraform.io/docs/configuration/variables.html)
+    > 
+    > Terraform also automatically loads a number of variable definitions files if they are present:
+    >   - Files named exactly terraform.tfvars or terraform.tfvars.json.
+    >   - Any files with names ending in .auto.tfvars or .auto.tfvars.json.
+1. `data source`
+    > [Data Sources](https://www.terraform.io/docs/configuration/data-sources.html)
+    > 
+    > Data sources allow data to be fetched or computed for use elsewhere in Terraform configuration. Use of data sources allows a Terraform configuration to make use of information defined outside of Terraform, or defined by another separate Terraform configuration.
+
+    So, describe like this:
+    ```tf:data_ec2.tf
+    data "aws_instance" "default" {
+      filter {
+        name   = "tag:Name"
+        values = ["the_name_of_ec2_which_can_be_either_inside_or_outside_of_terraform_configuration"]
+      }
+    }
+    output "ec2_default" {
+      value = data.aws_instance.default.id
+    }
+    ```
+    When you run `terraform apply` or `terraform output` or `terraform refresh`, the information of `data.aws_instance.default.id` will be displayed on terminal.
+
 # This repo's directory layout
 Configurations are created for some componet units.
 ```bash
