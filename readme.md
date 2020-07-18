@@ -10,8 +10,10 @@
 - AWS CLI (version >= 2)
 - IAM user for Terraform
     1. Create IAM user for Terraform
-       - As IAM permissions, see `./tf_*/readme.md`. 
+        
+        As IAM permissions, see `./tf_*/readme.md`. 
     1. Create a new aws profile with the IAM user for AWS CLI
+        
         In this repository, name the aws profile "terraform_user".
         ```bash
         # Create
@@ -28,6 +30,7 @@
         Get-ChildItem -Path Env: | Where-Object Name -match "AWS_PROFILE" # Env : Windows PowerShell
         ```
 - S3 bucket for Terraform's tfstate
+    
     Create a new S3 bucket for Terraform's `backend` and `remote_state` and so on. Here I use `myterraformtest` bucket, but be aware that bucket names must be globally unique so please replace it with another name you like.
     ```bash
     # Create
