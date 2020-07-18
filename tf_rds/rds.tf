@@ -1,12 +1,12 @@
 # Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
-  name = "rds_subnetgroup_terraform" # Uppercase is NOT allowd in "name"
+  name = "rds_subnet_group_terraform_${terraform.workspace}" # Uppercase is NOT allowd in "name"
   subnet_ids = [
-    aws_subnet.public_1a.id,
-    aws_subnet.public_1c.id
+    data.terraform_remote_state.vpc.outputs.subnet_id_private_1c,
+    data.terraform_remote_state.vpc.outputs.subnet_id_private_1d
   ]
   tags = {
-    Name = "RDS_SubnetGroup_terraform"
+    Name = "rds_subnet_group_terraform_${terraform.workspace}"
   }
 }
 
@@ -24,7 +24,7 @@ resource "aws_db_instance" "default" {
   password              = "foobarbaz"
   db_subnet_group_name  = aws_db_subnet_group.default.id
   skip_final_snapshot   = true # If not specified or set as false, `terraform destroy` comes to an ERROR.
-  publicly_accessible   = true # To set "true", the vpc with internet gateway is required.
+  publicly_accessible   = false # To set "true", IGW & Security Group which allows DB access are required. When it is set as "true", a public IP is attached to RDS but it is not shown in any section of AWS management console (See : https://docs.aws.amazon.com/ja_jp/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Hiding)
   vpc_security_group_ids = [
     aws_security_group.rds.id
   ]
