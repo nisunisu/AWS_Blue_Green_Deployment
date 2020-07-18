@@ -6,8 +6,40 @@
   - Contains Ansible tasks on EC2 (by terraform or using AMI which has been created beforehand)
 
 # Requirements
-- Aws cli (version >= 2)
 - Terraform (version >= 0.12)
+- AWS CLI (version >= 2)
+- IAM user for Terraform
+    1. Create IAM user for Terraform
+       - As IAM permissions, see `./tf_*/readme.md`. 
+    1. Create a new aws profile with the IAM user for AWS CLI
+        In this repository, name the aws profile "terraform_user".
+        ```bash
+        # Create
+        aws configure --profile "terraform_user" # Set it up with IAM access key and secret key
+        
+        # Set as default profile
+        export AWS_PROFILE="terraform_user" # Mac or Linux
+        setx AWS_PROFILE "terraform_user"   # Windows (NOTICE : this command is for USER env)
+        
+        # Show CURRENT aws profile
+        # To refresh profile, terminal restart may be required.
+        aws configure list  # current aws profile
+        echo ${AWS_PROFILE} # Env : Mac or Linux
+        Get-ChildItem -Path Env: | Where-Object Name -match "AWS_PROFILE" # Env : Windows PowerShell
+        ```
+- S3 bucket for Terraform's tfstate
+    Create a new S3 bucket for Terraform's `backend` and `remote_state` and so on. Here I use `myterraformtest` bucket, but be aware that bucket names must be globally unique so please replace it with another name you like.
+    ```bash
+    # Create
+    aws s3 mb s3://"myterraformtest" # NOTICE : Bucket names must be globally unique. So Replace it with another name you like. 
+
+    aws s3 ls # check
+
+    # Disable public access to the bucket
+    aws s3api put-public-access-block --bucket "myterraformtest" --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+
+    aws s3api get-public-access-block --bucket "myterraformtest" # check
+    ```
 
 # Terraform resource types
 1. `resource`
