@@ -1,10 +1,13 @@
-# Name
-This repo is just for the purpose of personal terraform trying.
+# My terraform test repo
+- This repo is just for the purpose of personal terraform practice.
+- Current goals (under making) are:
+  - Contains ALB, EC2, RDS
+  - Contains EC2 Blue/Green deployment
+  - Contains running Ansible tasks on EC2 (by terraform or using AMI which is created beforehand)
 
-# Requirement
-- aws cli (version >= 2)
-  - Use for aws credential
-- Terraform
+# Requirements
+- Aws cli (version >= 2)
+- Terraform (version >= 0.12)
 
 # Terraform resource types
 1. `resource`
@@ -61,7 +64,7 @@ terraform destroy
 ```
 
 # IAM
-Following full access permissions are required
+The aws profile which is used to run `terraform` must have following AWS permissions:
 - VPC
 - RDS
 - EC2
@@ -75,12 +78,11 @@ Following full access permissions are required
 - [Getting Started](https://learn.hashicorp.com/terraform/getting-started/intro)
 
 # Debugging
-Set environmental variable.
-
-## Referrence
 - [Debugging Terraform](https://www.terraform.io/docs/internals/debugging.html)
 
-## Windows
+For debugging, set environmental variable(s).
+
+With Windows:
 ```PowerShell
 # Set TEMPORARILY
 $env:TF_LOG="TRACE" # TRACE, DEBUG, INFO, WARN or ERROR
@@ -91,6 +93,9 @@ $env:TF_LOG_PATH="./terraform.log"
 [System.Environment]::SetEnvironmentVariable("TF_LOG_PATH", "./terraform.log", "User")
 # need to restart powershell console
 ```
+
+With Mac or Linux:
+Sorry, I don't know.
 
 # Procedures
 ## Terraform
