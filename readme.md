@@ -3,7 +3,7 @@
 - Current goals (under making) are:
   - Contains ALB, EC2, RDS
   - Contains EC2 Blue/Green deployment
-  - Contains running Ansible tasks on EC2 (by terraform or using AMI which is created beforehand)
+  - Contains Ansible tasks on EC2 (by terraform or using AMI which has been created beforehand)
 
 # Requirements
 - Aws cli (version >= 2)
