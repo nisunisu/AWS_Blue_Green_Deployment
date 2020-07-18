@@ -7,8 +7,8 @@ resource "aws_lb" "default" {
     aws_security_group.alb.id
   ]
   subnets            = [
-    aws_subnet.public_1a.id,
-    aws_subnet.public_1c.id
+    data.terraform_remote_state.vpc.outputs.subnet_id_public_1a,
+    data.terraform_remote_state.vpc.outputs.subnet_id_public_1c
   ]
   enable_deletion_protection = false
 
@@ -38,11 +38,11 @@ resource "aws_lb_target_group" "default" {
   port     = 80
   protocol = "HTTP"
   target_type = "instance"
-  vpc_id   = aws_vpc.default.id
+  vpc_id   = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
 resource "aws_lb_target_group_attachment" "default" {
   target_group_arn = aws_lb_target_group.default.arn
-  target_id        = aws_instance.web_1.id
+  target_id        = data.terraform_remote_state.ec2.outputs.ec2_web1_instance_id
   port             = 80
 }
