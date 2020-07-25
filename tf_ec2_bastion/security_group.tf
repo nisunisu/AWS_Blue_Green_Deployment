@@ -1,5 +1,5 @@
 resource "aws_security_group_rule" "Inbound_SELF" {
-  security_group_id = data.terraform_remote_state.ec2.outputs.ec2_security_group_id
+  security_group_id = data.terraform_remote_state.ec2_blue.outputs.ec2_security_group_id
   type              = "ingress"
   from_port         = 22
   to_port           = 22

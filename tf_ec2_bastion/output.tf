@@ -8,5 +8,5 @@ output "ec2_bastion_private_ip" {
   value = aws_instance.bastion.private_ip
 }
 output "ec2_web1_private_ip" {
-  value = data.terraform_remote_state.ec2.outputs.ec2_web1_private_ip
+  value = data.terraform_remote_state.ec2_blue.outputs.ec2_web1_private_ip
 }
