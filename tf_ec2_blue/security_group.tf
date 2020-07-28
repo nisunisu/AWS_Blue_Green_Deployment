@@ -6,17 +6,7 @@ resource "aws_security_group" "ec2_blue" {
     Name = "securitygroup_ec2_blue_terraform_${terraform.workspace}"
   }
 }
-resource "aws_security_group_rule" "Inbound_ssh" {
-  security_group_id = aws_security_group.ec2_blue.id
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks = [
-    "${var.my_home_ip}/32"
-  ]
-}
-resource "aws_security_group_rule" "Outbound_allow_all_ssh" {
+resource "aws_security_group_rule" "Outbound_allow_all" {
   security_group_id = aws_security_group.ec2_blue.id
   type              = "egress"
   from_port         = 0
