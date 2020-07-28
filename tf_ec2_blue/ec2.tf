@@ -1,5 +1,5 @@
 resource "aws_instance" "web_1" {
-  ami           = "ami-0f494d7037b774834" # Personal AMI (Amazon linux v2 with nginx(enabled) and mysql client)
+  ami           = "ami-00b8ba5422dd106cd" # Use latest amazon linux 2 ami created with Packer
   instance_type = "t2.micro"
   vpc_security_group_ids = [
     aws_security_group.ec2_blue.id
