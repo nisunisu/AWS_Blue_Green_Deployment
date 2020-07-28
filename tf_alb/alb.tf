@@ -1,6 +1,6 @@
 # Application Load Balancer
 resource "aws_lb" "default" {
-  name               = "alb-terraform-${terraform.workspace}"
+  name               = "alb-terraform"
   internal           = false
   load_balancer_type = "application" # application or network
   security_groups    = [
@@ -17,9 +17,6 @@ resource "aws_lb" "default" {
   #   prefix  = "default-lb"
   #   enabled = true
   # }
-  tags = {
-    Terraform_Workspace = terraform.workspace
-  }
 }
 
 resource "aws_lb_listener" "front_end" {
@@ -34,7 +31,7 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb_target_group" "default" {
-  name     = "alb-tg-${terraform.workspace}"
+  name     = "alb-tg"
   port     = 80
   protocol = "HTTP"
   target_type = "instance"

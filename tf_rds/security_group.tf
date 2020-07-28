@@ -1,10 +1,10 @@
 # For RDS
 resource "aws_security_group" "rds" {
-  name        = "securitygroup_rds_terraform_${terraform.workspace}"
+  name        = "securitygroup_rds_terraform"
   description = "Allow MYSQL/Aurora"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
   tags = {
-    Name = "securitygroup_rds_terraform_${terraform.workspace}"
+    Name = "securitygroup_rds_terraform"
   }
 }
 ## Security Group Rule

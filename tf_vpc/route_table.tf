@@ -2,7 +2,7 @@
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.default.id
   tags = {
-    Name = "Route_Table_terraform_${terraform.workspace}"
+    Name = "Route_Table_terraform"
   }
 }
 resource "aws_route" "public" {

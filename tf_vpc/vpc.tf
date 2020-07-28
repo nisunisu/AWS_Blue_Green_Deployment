@@ -5,7 +5,7 @@ resource "aws_vpc" "default" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "vpc_terraform_${terraform.workspace}"
+    Name = "vpc_terraform"
   }
 }
 
@@ -14,6 +14,6 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.default.id
 
   tags = {
-    Name = "igw_terraform_${terraform.workspace}"
+    Name = "igw_terraform"
   }
 }

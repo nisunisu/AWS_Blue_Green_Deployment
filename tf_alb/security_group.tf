@@ -1,9 +1,9 @@
 resource "aws_security_group" "alb" {
-  name        = "securitygroup_alb_terraform_${terraform.workspace}"
+  name        = "securitygroup_alb_terraform"
   description = "Allow http"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
   tags = {
-    Name = "securitygroup_alb_terraform_${terraform.workspace}"
+    Name = "securitygroup_alb_terraform"
   }
 }
 resource "aws_security_group_rule" "Inbound_http" {

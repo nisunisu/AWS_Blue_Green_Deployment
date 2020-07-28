@@ -8,6 +8,6 @@ resource "aws_instance" "web_blue" {
   associate_public_ip_address = false # NOTICE: Even if this is set as "false", it will be ALWAYS set as "true" when "auto-assign public ipv4 address" with SUBNET is set as "TRUE".
   key_name                    = var.key_name
   tags = {
-    Name  = "ec2_web_blue_terraform_${terraform.workspace}"
+    Name  = "ec2_web_blue_terraform"
   }
 }
