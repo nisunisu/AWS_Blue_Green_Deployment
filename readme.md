@@ -76,17 +76,18 @@
 Configurations are created for some componet units.
 ```bash
 Terraform/
-+- tf_alb/    # Configuration for AWS ALB, Security Group
-+- tf_ec2/    # Configuration for AWS EC2, Security Group
-+- tf_rds/    # Configuration for AWS RDS, Security Group
-+- tf_vpc/    # Configuration for AWS VPC, IGW, Subnet, Route Table
++- tf_alb/         # Configuration for AWS ALB, Security Group
++- tf_ec2_bastion/ # Configuration for AWS EC2, Security Group
++- tf_ec2_blue/    # Configuration for AWS EC2, Security Group
++- tf_ec2_grenn/   # Configuration for AWS EC2, Security Group
++- tf_rds/         # Configuration for AWS RDS, Security Group
++- tf_vpc/         # Configuration for AWS VPC, IGW, Subnet, Route Table
 -  readme.md
 ```
-And in every `tf_*` directory, there are secret 2 files which is NOT commit to this repo.
+And in every `tf_*` directory, there is secret a files which is NOT commit to this repo.
 ```bash
 Terraform/
-+- tf_vpc/
-  - variables_SECRET.tfbackend   # credential variables for `terraform init` are described
++- tf_ec2_bastion/
   - variables_SECRET.auto.tfvars # credential variables for `terraform` commands (excluding `init`) are described
 ```
 So, execute `terraform` commands like:
