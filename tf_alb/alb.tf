@@ -43,6 +43,6 @@ resource "aws_lb_target_group" "default" {
 
 resource "aws_lb_target_group_attachment" "default" {
   target_group_arn = aws_lb_target_group.default.arn
-  target_id        = data.terraform_remote_state.ec2_blue.outputs.ec2_web1_instance_id
+  target_id        = data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_instance_id
   port             = 80
 }

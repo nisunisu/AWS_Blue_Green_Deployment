@@ -1,4 +1,4 @@
-resource "aws_instance" "web_1" {
+resource "aws_instance" "web_blue" {
   ami           = "ami-00b8ba5422dd106cd" # Use latest amazon linux 2 ami created with Packer
   instance_type = "t2.micro"
   vpc_security_group_ids = [
@@ -8,6 +8,6 @@ resource "aws_instance" "web_1" {
   associate_public_ip_address = false # NOTICE: Even if this is set as "false", it will be ALWAYS set as "true" when "auto-assign public ipv4 address" with SUBNET is set as "TRUE".
   key_name                    = var.key_name
   tags = {
-    Name  = "ec2_web_1_terraform_${terraform.workspace}"
+    Name  = "ec2_web_blue_terraform_${terraform.workspace}"
   }
 }

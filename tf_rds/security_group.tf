@@ -15,7 +15,7 @@ resource "aws_security_group_rule" "Inbound_database" {
   to_port           = 3306
   protocol          = "tcp"
   cidr_blocks = [
-    "${data.terraform_remote_state.ec2_blue.outputs.ec2_web1_private_ip}/32"
+    "${data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_private_ip}/32"
   ]
 }
 resource "aws_security_group_rule" "Outbound_allow_all" {

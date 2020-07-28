@@ -4,5 +4,5 @@ resource "aws_security_group_rule" "Inbound_SELF" {
   from_port         = 22
   to_port           = 22
   protocol          = "tcp"
-  self              = true # bastion belongs to the same security group with the one which "web_1" EC2 belongs to.
+  self              = true # bastion belongs to the same security group with the one which "web_blue" EC2 belongs to.
 }
