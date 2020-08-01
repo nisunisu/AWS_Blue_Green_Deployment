@@ -2,3 +2,5 @@
 *.tfstate*
 *SECRET*
 pptx/
+*.pem
+*.ppk
