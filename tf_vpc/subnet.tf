@@ -6,7 +6,7 @@ resource "aws_subnet" "public_1a" {
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1a"
   tags = {
-    Name = "Subnet_public_1a_terraform_${terraform.workspace}"
+    Name = "Subnet_public_1a_terraform"
   }
 }
 resource "aws_subnet" "public_1c" {
@@ -15,7 +15,7 @@ resource "aws_subnet" "public_1c" {
   map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1c"
   tags = {
-    Name = "Subnet_public_1c_terraform_${terraform.workspace}"
+    Name = "Subnet_public_1c_terraform"
   }
 }
 ## Private
@@ -25,7 +25,7 @@ resource "aws_subnet" "private_1c" {
   map_public_ip_on_launch = false
   availability_zone       = "ap-northeast-1c"
   tags = {
-    Name = "Subnet_private_1c_terraform_${terraform.workspace}"
+    Name = "Subnet_private_1c_terraform"
   }
 }
 resource "aws_subnet" "private_1d" {
@@ -34,6 +34,6 @@ resource "aws_subnet" "private_1d" {
   map_public_ip_on_launch = false
   availability_zone       = "ap-northeast-1d"
   tags = {
-    Name = "Subnet_private_1d_terraform_${terraform.workspace}"
+    Name = "Subnet_private_1d_terraform"
   }
 }

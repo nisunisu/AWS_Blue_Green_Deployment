@@ -7,11 +7,11 @@ data "terraform_remote_state" "vpc" {
   }
 }
 
-data "terraform_remote_state" "ec2" {
+data "terraform_remote_state" "ec2_blue" {
   backend = "s3"
   config = {
     region  = "ap-northeast-1"
     bucket  = "myterraformtest"
-    key     = "terraform_ec2.tfstate" # Get remote state from "tf_vpc" folder's output
+    key     = "terraform_ec2_blue.tfstate" # Get remote state from "tf_vpc" folder's output
   }
 }

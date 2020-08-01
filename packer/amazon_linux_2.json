@@ -1,0 +1,26 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "ap-northeast-1",
+    "source_ami": "ami-0a1c2ec61571737db",
+    "instance_type": "t2.micro",
+    "ssh_username": "ec2-user",
+    "ami_name": "ami_terraform_20200728",
+    "launch_block_device_mappings": [{
+      "delete_on_termination": true,
+      "device_name": "/dev/xvda",
+      "volume_size": 8,
+      "volume_type": "gp2"
+    }]
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": [
+      "sudo amazon-linux-extras enable nginx1.12",
+      "sudo yum -y update",
+      "sudo yum -y upgrade",
+      "sudo yum -y install nginx mysql",
+      "sudo systemctl enable nginx"
+    ]
+  }]
+}

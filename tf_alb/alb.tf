@@ -1,6 +1,6 @@
 # Application Load Balancer
 resource "aws_lb" "default" {
-  name               = "alb-terraform-${terraform.workspace}"
+  name               = "alb-terraform"
   internal           = false
   load_balancer_type = "application" # application or network
   security_groups    = [
@@ -17,9 +17,6 @@ resource "aws_lb" "default" {
   #   prefix  = "default-lb"
   #   enabled = true
   # }
-  tags = {
-    Terraform_Workspace = terraform.workspace
-  }
 }
 
 resource "aws_lb_listener" "front_end" {
@@ -34,15 +31,20 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb_target_group" "default" {
-  name     = "alb-tg-${terraform.workspace}"
+  name     = "alb-tg"
   port     = 80
   protocol = "HTTP"
   target_type = "instance"
   vpc_id   = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
-resource "aws_lb_target_group_attachment" "default" {
+resource "aws_lb_target_group_attachment" "ec2_blue" {
   target_group_arn = aws_lb_target_group.default.arn
-  target_id        = data.terraform_remote_state.ec2.outputs.ec2_web1_instance_id
+  target_id        = data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_instance_id
+  port             = 80
+}
+resource "aws_lb_target_group_attachment" "ec2_green" {
+  target_group_arn = aws_lb_target_group.default.arn
+  target_id        = data.terraform_remote_state.ec2_green.outputs.ec2_web_green_instance_id
   port             = 80
 }

@@ -1,12 +1,12 @@
 # Subnet Group for RDS
 resource "aws_db_subnet_group" "default" {
-  name = "rds_subnet_group_terraform_${terraform.workspace}" # Uppercase is NOT allowd in "name"
+  name = "rds_subnet_group_terraform" # Uppercase is NOT allowd in "name"
   subnet_ids = [
     data.terraform_remote_state.vpc.outputs.subnet_id_private_1c,
     data.terraform_remote_state.vpc.outputs.subnet_id_private_1d
   ]
   tags = {
-    Name = "rds_subnet_group_terraform_${terraform.workspace}"
+    Name = "rds_subnet_group_terraform"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_db_instance" "default" {
   engine                = "mariaDB"
   engine_version        = "10.4"
   instance_class        = "db.t2.micro"
-  identifier            = "rds-terraform-${terraform.workspace}"
+  identifier            = "rds-terraform"
   name                  = "terraform" # DBName must begin with a letter and contain only alphanumeric characters.
   username              = "foo"
   password              = "foobarbaz"

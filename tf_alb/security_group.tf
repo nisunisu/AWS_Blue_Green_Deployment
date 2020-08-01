@@ -1,9 +1,9 @@
 resource "aws_security_group" "alb" {
-  name        = "securitygroup_alb_terraform_${terraform.workspace}"
+  name        = "securitygroup_alb_terraform"
   description = "Allow http"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
   tags = {
-    Name = "securitygroup_alb_terraform_${terraform.workspace}"
+    Name = "securitygroup_alb_terraform"
   }
 }
 resource "aws_security_group_rule" "Inbound_http" {
@@ -16,18 +16,34 @@ resource "aws_security_group_rule" "Inbound_http" {
     "0.0.0.0/0"
   ]
 }
-resource "aws_security_group_rule" "Outbound_http" {
+resource "aws_security_group_rule" "Outbound_http_to_blue" {
   security_group_id = aws_security_group.alb.id
   type              = "egress"
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  source_security_group_id = data.terraform_remote_state.ec2.outputs.ec2_security_group_id
+  source_security_group_id = data.terraform_remote_state.ec2_blue.outputs.ec2_security_group_id
+}
+resource "aws_security_group_rule" "Outbound_http_to_green" {
+  security_group_id = aws_security_group.alb.id
+  type              = "egress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = data.terraform_remote_state.ec2_green.outputs.ec2_security_group_id
 }
 
 # Add EC2 security group to allow http from ALB
-resource "aws_security_group_rule" "Inbound_alb_http" {
-  security_group_id = data.terraform_remote_state.ec2.outputs.ec2_security_group_id
+resource "aws_security_group_rule" "Inbound_alb_http_to_blue" {
+  security_group_id = data.terraform_remote_state.ec2_blue.outputs.ec2_security_group_id
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  source_security_group_id = aws_security_group.alb.id
+}
+resource "aws_security_group_rule" "Inbound_alb_http_to_green" {
+  security_group_id = data.terraform_remote_state.ec2_green.outputs.ec2_security_group_id
   type              = "ingress"
   from_port         = 80
   to_port           = 80
