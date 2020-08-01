@@ -83,6 +83,7 @@ Terraform/
 +- tf_rds/         # Configuration for AWS RDS, Security Group
 +- tf_vpc/         # Configuration for AWS VPC, IGW, Subnet, Route Table
 -  readme.md
+- terraform_init_all_configures.ps1    # init all existing resources
 - terraform_apply_all_configures.ps1   # apply all resources
 - terraform_destroy_all_configures.ps1 # destroy all existing resources
 ```
