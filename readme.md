@@ -83,6 +83,8 @@ Terraform/
 +- tf_rds/         # Configuration for AWS RDS, Security Group
 +- tf_vpc/         # Configuration for AWS VPC, IGW, Subnet, Route Table
 -  readme.md
+- terraform_apply_all_configures.ps1   # apply all resources
+- terraform_destroy_all_configures.ps1 # destroy all existing resources
 ```
 And in every `tf_*` directory, there is secret a files which is NOT commit to this repo.
 ```bash
