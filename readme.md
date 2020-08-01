@@ -86,16 +86,10 @@ Terraform/
 - terraform_apply_all_configures.ps1   # apply all resources
 - terraform_destroy_all_configures.ps1 # destroy all existing resources
 ```
-And in every `tf_*` directory, there is secret a files which is NOT commit to this repo.
-```bash
-Terraform/
-+- tf_ec2_bastion/
-  - variables_SECRET.auto.tfvars # credential variables for `terraform` commands (excluding `init`) are described
-```
 So, execute `terraform` commands like:
 ```bash
 cd Terraform/tf_vpc
-terraform init -backend-config="./variables_SECRET.tfbackend"
+terraform init
 terraform plan
 terraform apply
 terraform destroy
@@ -141,7 +135,8 @@ Sorry, I don't know.
 # AWS user is specified in provider.tf
 
 # Initialize terraform (make .terraform folder)
-terraform init -backend-config="variables_SECRET.tfbackend"
+terraform init
+terraform init -backend-config="variables_SECRET.tfbackend" # when use variables
 
 # Workspaces
 terraform workspace new blue
@@ -159,8 +154,8 @@ terraform plan
 terraform validate
 
 # Apply and Destroy
-terraform apply   --auto-approve
-terraform destroy --auto-approve
+terraform apply   -auto-approve
+terraform destroy -auto-approve
 
 # Show outputs
 terraform output
