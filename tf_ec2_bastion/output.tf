@@ -10,3 +10,6 @@ output "ec2_bastion_private_ip" {
 output "ec2_web_blue_private_ip" {
   value = data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_private_ip
 }
+output "ec2_web_green_private_ip" {
+  value = data.terraform_remote_state.ec2_green.outputs.ec2_web_green_private_ip
+}
