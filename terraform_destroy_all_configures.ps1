@@ -11,7 +11,7 @@ foreach ($dir in $dir_arr) {
   Write-Output "======"
   Push-Location
   Set-Location -Path ${dir}
-  Get-Location
+  Get-Location | Format-Table -AutoSize -Wrap
   
   # destory only when resource exists
   $stat = terraform state list

@@ -10,7 +10,7 @@ foreach ($dir in $dir_arr) {
   Write-Output "======"
   Push-Location
   Set-Location -Path ${dir}
-  Get-Location
+  Get-Location | Format-Table -AutoSize -Wrap
   terraform init
   if ($? -ne $true) {
     Write-Output "Error"

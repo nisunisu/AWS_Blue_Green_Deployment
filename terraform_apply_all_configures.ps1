@@ -16,16 +16,24 @@ if ($IgnoreRDS -eq $false){
 if ($IgnoreALB -eq $false){
   $dir_arr += ".\tf_alb"
 }
+$result = $null
 foreach ($dir in $dir_arr) {
   Write-Output "======"
   Push-Location
   Set-Location -Path ${dir}
   Get-Location
-  terraform apply --auto-approve | Out-Null
+  terraform apply --auto-approve
   if ($? -ne $true) {
     Write-Output "Error"
     exit 100
   }
+  Pop-Location
+}
+foreach ($dir in $dir_arr) {
+  Write-Output "======"
+  Push-Location
+  Set-Location -Path ${dir}
+  Get-Location | Format-Table -AutoSize -Wrap
   terraform output
   Pop-Location
 }
