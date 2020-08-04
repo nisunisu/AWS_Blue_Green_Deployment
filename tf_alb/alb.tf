@@ -23,15 +23,31 @@ resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.default.arn
   port              = 80
   protocol          = "HTTP"
-
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.default.arn
+    type            = "forward"
+    forward {
+      target_group {
+        arn    = aws_lb_target_group.ec2_blue.arn
+        weight = var.weight_blue
+      }
+      target_group {
+        arn    = aws_lb_target_group.ec2_green.arn
+        weight = var.weight_green
+      }
+    }
   }
 }
 
-resource "aws_lb_target_group" "default" {
-  name     = "alb-tg"
+resource "aws_lb_target_group" "ec2_blue" {
+  name     = "TargetGroup-blue"
+  port     = 80
+  protocol = "HTTP"
+  target_type = "instance"
+  vpc_id   = data.terraform_remote_state.vpc.outputs.vpc_id
+}
+
+resource "aws_lb_target_group" "ec2_green" {
+  name     = "TargetGroup-green"
   port     = 80
   protocol = "HTTP"
   target_type = "instance"
@@ -39,12 +55,13 @@ resource "aws_lb_target_group" "default" {
 }
 
 resource "aws_lb_target_group_attachment" "ec2_blue" {
-  target_group_arn = aws_lb_target_group.default.arn
+  target_group_arn = aws_lb_target_group.ec2_blue.arn
   target_id        = data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_instance_id
   port             = 80
 }
+
 resource "aws_lb_target_group_attachment" "ec2_green" {
-  target_group_arn = aws_lb_target_group.default.arn
+  target_group_arn = aws_lb_target_group.ec2_green.arn
   target_id        = data.terraform_remote_state.ec2_green.outputs.ec2_web_green_instance_id
   port             = 80
 }
