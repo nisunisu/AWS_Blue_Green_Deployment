@@ -8,15 +8,21 @@ resource "aws_security_group" "rds" {
   }
 }
 ## Security Group Rule
-resource "aws_security_group_rule" "Inbound_database" {
+resource "aws_security_group_rule" "Inbound_Database_from_blue" {
   security_group_id = aws_security_group.rds.id
   type              = "ingress"
   from_port         = 3306
   to_port           = 3306
   protocol          = "tcp"
-  cidr_blocks = [
-    "${data.terraform_remote_state.ec2_blue.outputs.ec2_web_blue_private_ip}/32"
-  ]
+  source_security_group_id = data.terraform_remote_state.ec2_blue.outputs.ec2_security_group_id
+}
+resource "aws_security_group_rule" "Inbound_Database_from_green" {
+  security_group_id = aws_security_group.rds.id
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  source_security_group_id = data.terraform_remote_state.ec2_green.outputs.ec2_security_group_id
 }
 resource "aws_security_group_rule" "Outbound_allow_all" {
   security_group_id = aws_security_group.rds.id
