@@ -1,9 +1,14 @@
 # My terraform test repo
-- This repo is just for the purpose of personal terraform practice.
-- Current goals (under making) are:
-  - Contains ALB, EC2, RDS
-  - Contains EC2 Blue/Green deployment
-  - Contains Ansible tasks on EC2 (by terraform or using AMI which has been created beforehand)
+- This repo is just for the purpose of personal Terraform practice.
+- Current goals are:
+  - [x] Contains VPC, EC2, RDS, ALB
+  - [x] Manage EC2 images with Packer
+  - [x] EC2 Blue/Green deployment
+  - [x] ALB with weighted target groups
+  - [ ] EC2 auto scaling group
+  - [ ] Web App
+  - [ ] RDS master/slave
+  - [ ] Apply this repo's contents to another cloud services (Azure, GCP etc)
 
 # Requirements
 - Terraform (version >= 0.12)
