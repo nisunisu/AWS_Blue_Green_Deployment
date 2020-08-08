@@ -1,4 +1,4 @@
-# My terraform test repo
+# My Terraform test repository
 - This repo is just for the purpose of personal Terraform practice.
 - Current goals are:
   - [x] Contains VPC, EC2, RDS, ALB
@@ -12,6 +12,7 @@
 
 # Requirements
 - Terraform (version >= 0.12)
+- Packer (version >= 1.6.0)
 - AWS CLI (version >= 2)
 - IAM user for Terraform
     1. Create IAM user for Terraform
