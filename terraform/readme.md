@@ -1,19 +1,7 @@
-# My Terraform test repository
-- This repo is just for the purpose of personal Terraform practice.
-- Current goals are:
-  - [x] Contains VPC, EC2, RDS, ALB
-  - [x] Manage EC2 images with Packer
-  - [x] EC2 Blue/Green deployment
-  - [x] ALB with weighted target groups
-  - [ ] EC2 auto scaling group
-  - [ ] Web App
-  - [ ] RDS master/slave
-  - [ ] Apply this repo's contents to another cloud services (Azure, GCP etc)
+# AWS Blue / Green deployment with Terraform
 
 # Requirements
-- Terraform (version >= 0.12)
-- Packer (version >= 1.6.0)
-- AWS CLI (version >= 2)
+- AMI id (in this repository, AMI template is created with Packer)
 - IAM user for Terraform
     1. Create IAM user for Terraform
         
