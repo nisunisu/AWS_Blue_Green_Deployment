@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "blue_or_green": ""
+  },
   "builders": [
     {
       "type": "amazon-ebs",
@@ -6,7 +9,7 @@
       "source_ami": "ami-0a1c2ec61571737db",
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "ami_name": "ami_packer_{{timestamp}}",
+      "ami_name": "ami_packer_{{user `blue_or_green`}}_{{timestamp}}",
       "launch_block_device_mappings": [
         {
           "delete_on_termination": true,
@@ -41,7 +44,7 @@
         "python3 /tmp/get-pip.py",
         "export PATH=$PATH:/home/ec2-user/.local/bin",
         "pip install --user ansible",
-        "ansible-playbook /tmp/ansible/site.yml --extra-vars='blue_or_green=blue'"
+        "ansible-playbook /tmp/ansible/site.yml --extra-vars='blue_or_green={{user `blue_or_green`}}'"
       ]
     }
   ]
