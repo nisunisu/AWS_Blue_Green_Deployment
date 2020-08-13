@@ -2,6 +2,11 @@
 
 # Requirements
 - AMI id (in this repository, AMI template is created with Packer)
+    ```PowerShell
+    # AMI ids created with Packer can be shown with the procedure below:
+    $jsondata = aws ec2 describe-images --owners self --output json | ConvertFrom-Json
+    $jsondata.Images | Select-Object -Property ImageId, Name, CreationDate
+    ```
 - IAM user for Terraform
     1. Create IAM user for Terraform
         
@@ -69,25 +74,30 @@
 # This repo's directory layout
 Configurations are created for some componet units.
 ```bash
-Terraform/
-+- tf_alb/         # Configuration for AWS ALB, Security Group
-+- tf_ec2_bastion/ # Configuration for AWS EC2, Security Group
-+- tf_ec2_blue/    # Configuration for AWS EC2, Security Group
-+- tf_ec2_grenn/   # Configuration for AWS EC2, Security Group
-+- tf_rds/         # Configuration for AWS RDS, Security Group
-+- tf_vpc/         # Configuration for AWS VPC, IGW, Subnet, Route Table
--  readme.md
-- terraform_init_all_configures.ps1    # init all existing resources
-- terraform_apply_all_configures.ps1   # apply all resources
-- terraform_destroy_all_configures.ps1 # destroy all existing resources
+- terraform/
+  +- tf_alb/         # Configuration for AWS ALB, Security Group
+  +- tf_ec2_bastion/ # Configuration for AWS EC2, Security Group
+  +- tf_ec2_blue/    # Configuration for AWS EC2, Security Group
+  +- tf_ec2_grenn/   # Configuration for AWS EC2, Security Group
+  +- tf_rds/         # Configuration for AWS RDS, Security Group
+  +- tf_vpc/         # Configuration for AWS VPC, IGW, Subnet, Route Table
+  - README.md
+  - terraform_init_all_configures.ps1    # init all existing resources
+  - terraform_apply_all_configures.ps1   # apply all resources
+  - terraform_destroy_all_configures.ps1 # destroy all existing resources
 ```
 So, execute `terraform` commands like:
 ```bash
-cd Terraform/tf_vpc
+cd terraform/tf_vpc
 terraform init
 terraform plan
 terraform apply
 terraform destroy
+```
+Or like:
+```PowerShell
+Set-Location -Path terraform
+terraform_apply_all_configures.ps1
 ```
 
 # IAM
