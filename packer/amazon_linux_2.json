@@ -41,7 +41,7 @@
         "python3 /tmp/get-pip.py",
         "export PATH=$PATH:/home/ec2-user/.local/bin",
         "pip install --user ansible",
-        "ansible-playbook /tmp/ansible/site.yml"
+        "ansible-playbook /tmp/ansible/site.yml --extra-vars='blue_or_green=blue'"
       ]
     }
   ]

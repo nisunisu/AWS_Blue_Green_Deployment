@@ -1,3 +1,1 @@
-index_html_blue  : "../files/index_blue.html"
-index_html_green : "../files/index_green.html"
 dest_index_html  : "/usr/share/nginx/html"
