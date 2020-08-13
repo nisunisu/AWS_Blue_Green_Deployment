@@ -1,5 +1,5 @@
 resource "aws_instance" "web_green" {
-  ami           = "ami-00b8ba5422dd106cd" # Use latest amazon linux 2 ami created with Packer
+  ami           = "ami-021727a9bbc2d5c9c" # Use latest amazon linux 2 ami created with Packer
   instance_type = "t2.micro"
   vpc_security_group_ids = [
     aws_security_group.ec2_green.id
