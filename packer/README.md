@@ -21,10 +21,10 @@
 ```bash
 packer --version
 
-packer validate -var 'blue_or_green=blue'  ./amazon_linux_2.json
-packer build    -var 'blue_or_green=green' ./amazon_linux_2.json
+packer validate -var 'blue_or_green=blue' ./amazon_linux_2.json
+packer build    -var 'blue_or_green=blue' ./amazon_linux_2.json
 
-packer validate -var 'blue_or_green=blue'  ./amazon_linux_2.json
+packer validate -var 'blue_or_green=green' ./amazon_linux_2.json
 packer build    -var 'blue_or_green=green' ./amazon_linux_2.json
 ```
 
