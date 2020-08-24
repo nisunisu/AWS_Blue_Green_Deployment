@@ -1,0 +1,8 @@
+---
+- name : copy index.html
+  copy :
+    src   : "../files/index_{{ blue_or_green }}.html"
+    dest  : "{{ dest_index_html }}/index.html"
+    owner: root
+    group: root
+    mode: '0644'

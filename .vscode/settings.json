@@ -1,0 +1,8 @@
+{
+  "terraform-ls.rootModules": [
+      "./terraform/tf_alb",
+      "./terraform/tf_ec2_bastion",
+      "./terraform/tf_rds",
+      "./terraform/tf_vpc"
+  ]
+}

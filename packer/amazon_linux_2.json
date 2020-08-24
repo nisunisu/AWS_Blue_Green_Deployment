@@ -1,0 +1,51 @@
+{
+  "variables": {
+    "blue_or_green": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "ap-northeast-1",
+      "source_ami": "ami-0a1c2ec61571737db",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "ami_packer_{{user `blue_or_green`}}_{{timestamp}}",
+      "launch_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "/dev/xvda",
+          "volume_size": 8,
+          "volume_type": "gp2"
+        }
+      ]
+    }
+  ],
+  "_comment": "Install nginx, mysql client, ansible and run ansible-playbook",
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo amazon-linux-extras enable nginx1.12",
+        "sudo yum update -y",
+        "sudo yum install -y nginx mysql",
+        "sudo systemctl enable nginx"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "ansible",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo yum install -y python3",
+        "curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py",
+        "python3 /tmp/get-pip.py",
+        "export PATH=$PATH:/home/ec2-user/.local/bin",
+        "pip install --user ansible",
+        "ansible-playbook /tmp/ansible/site.yml --extra-vars='blue_or_green={{user `blue_or_green`}}'"
+      ]
+    }
+  ]
+}
