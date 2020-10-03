@@ -12,7 +12,7 @@
   - [ ] Apply this repo's contents to another cloud services (Azure, GCP etc)
 
 # Requirements
-- Terraform (version >= 0.12)
+- Terraform (version >= 0.13)
 - Packer (version >= 1.6.0)
 - AWS CLI (version >= 2)
 - Appropriate IAM user(s)
