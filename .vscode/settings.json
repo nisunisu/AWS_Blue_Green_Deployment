@@ -2,6 +2,8 @@
   "terraform-ls.rootModules": [
       "./terraform/tf_alb",
       "./terraform/tf_ec2_bastion",
+      "./terraform/tf_ec2_blue",
+      "./terraform/tf_ec2_green",
       "./terraform/tf_rds",
       "./terraform/tf_vpc"
   ]
