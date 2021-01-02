@@ -4,7 +4,7 @@
 
 ## Contents in AMI
 - Base image
-  - amazon_linux_2
+  - amazon_linux_2 (latest)
 - Software
   - nginx (enabled)
   - mysql client
@@ -19,13 +19,29 @@
 
 # Packer command
 ```bash
+# Check version
 packer --version
 
-packer validate -var 'blue_or_green=blue' ./amazon_linux_2.json
-packer build    -var 'blue_or_green=blue' ./amazon_linux_2.json
+# Get the latest image id of Amazon Linux 2
+imageid=$( \
+    aws ec2 describe-images \
+        --owners amazon \
+        --filters \
+            "Name=architecture,Values=x86_64" \
+            "Name=root-device-type,Values=ebs" \
+            "Name=virtualization-type,Values=hvm" \
+            "Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2" \
+        --region ap-northeast-1 \
+        --query 'reverse(sort_by(Images, &CreationDate))[0].[ImageId]' \
+        --output text
+)
 
-packer validate -var 'blue_or_green=green' ./amazon_linux_2.json
-packer build    -var 'blue_or_green=green' ./amazon_linux_2.json
+# Select blue or green
+type="blue" # OR `type=green`
+
+# Build AMI image
+packer validate -var "blue_or_green=${type}" -var "image_id=${imageid}" ./amazon_linux_2.json
+packer build    -var "blue_or_green=${type}" -var "image_id=${imageid}" ./amazon_linux_2.json
 ```
 
 # Procedure
