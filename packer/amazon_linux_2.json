@@ -10,7 +10,7 @@
       "source_ami": "{{user `image_id`}}",
       "instance_type": "t2.micro",
       "ssh_username": "ec2-user",
-      "ami_name": "ami_packer_{{user `blue_or_green`}}_{{timestamp}}",
+      "ami_name": "ami_packer_{{user `blue_or_green`}}_{{isotime \"20060102_030405\"}}",
       "launch_block_device_mappings": [
         {
           "delete_on_termination": true,
