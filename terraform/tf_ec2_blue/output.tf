@@ -8,5 +8,5 @@ output "ec2_web_blue_private_ip" {
   value = aws_instance.web_blue.private_ip
 }
 output "ec2_security_group_id" {
-  value = aws_security_group.ec2_blue.id
+  value = module.sg_ec2_blue.security_group_id
 }

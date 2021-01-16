@@ -5,6 +5,7 @@
       "./terraform/tf_ec2_blue",
       "./terraform/tf_ec2_green",
       "./terraform/tf_rds",
-      "./terraform/tf_vpc"
+      "./terraform/tf_vpc",
+      "./terraform/module"
   ]
 }
