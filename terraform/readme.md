@@ -110,6 +110,11 @@ The aws profile which is used to run `terraform` must have following AWS permiss
 
 # Installation
 - [Install Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html )
+- On mac, you can use [tfenv](https://github.com/tfutils/tfenv) alternatively.
+    ```shell
+    brew install tfenv
+    tfenv install latest # install the latest version of terraform
+    ```
 
 # Official tutorial
 - [Getting Started](https://learn.hashicorp.com/terraform/getting-started/intro)
